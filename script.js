@@ -1,7 +1,6 @@
 function getComputerChoice(){
     // Random number between 1 and 3
     let choice = (Math.floor(Math.random() * 3))+1; 
-    console.log(choice)
     switch (choice) {
         case 1:
             return "Rock"
@@ -62,12 +61,57 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
+function getPlayerChoice(){
+    let choice = prompt("Choose rock, paper or scissors: ", "")
+    playerSelection = cleanInputString(choice)
 
-console.log(getComputerChoice())
-console.log(playRound("rock", getComputerChoice()))
-console.log(playRound("paper", getComputerChoice()))
-console.log(playRound("scissors", getComputerChoice()))
-console.log(playRound("rock", getComputerChoice()))
-console.log(playRound("paper", getComputerChoice()))
-console.log(playRound("scissors", getComputerChoice()))
+    while(
+        playerSelection != "Rock" && 
+        playerSelection != "Paper" && 
+        playerSelection != "Scissors")
+    {
+        console.log("Unknown option. Try again!")
+        choice = prompt("Choose rock, paper or scissors: ", "")
+        playerSelection = cleanInputString(choice)
+    }
+    return playerSelection
+}
+
+
+let NUM_ROUNDS = 5
+function game(){
+    let p_wins = 0;
+    let c_wins = 0;
+    for(let i=0; i<NUM_ROUNDS; i++){
+        let result = playRound(getPlayerChoice(), getComputerChoice())
+        
+        if (result == "draw"){
+            // Do nothing
+        }else if (result == "player"){
+            p_wins += 1
+        }else{
+            c_wins += 1
+        }
+        
+    }
+
+
+    if (p_wins == c_wins){
+        console.log(`It's a tie! Both players have ${p_wins} win(s)!`)
+    }else if (p_wins > c_wins){
+        console.log(`Player is the winner with ${p_wins} win(s)!`)
+    }else (
+        console.log(`Computer is the winner with ${c_wins} win(s)!`)
+    )
+}
+
+
+// console.log(getComputerChoice())
+// console.log(playRound("rock", getComputerChoice()))
+// console.log(playRound("paper", getComputerChoice()))
+// console.log(playRound("scissors", getComputerChoice()))
+// console.log(playRound("rock", getComputerChoice()))
+// console.log(playRound("paper", getComputerChoice()))
+// console.log(playRound("scissors", getComputerChoice()))
+game()
 
