@@ -17,29 +17,7 @@ function getComputerChoice(){
     }
 } 
 
-function cleanInputString(str){
-    // Any case is valid input, but internally it is only valid in 
-    // First Upper case
-    let resultStr = ""
-    for (let i=0; i < str.length; i++) {
-        let ch = str[i]
-        if (ch == ch.toUpperCase() && i != 0){
-            // Current char is uppercase, change to lower
-            resultStr += str[i].toLowerCase()
-        }else if(ch != ch.toUpperCase() && i == 0){
-            // First char is not uppercase, change to upper
-            resultStr += str[i].toUpperCase()
-        }else{
-            resultStr += str[i]
-        }   
-    }
-    return resultStr
-}
-
-function playRound(playerSelection, computerSelection) {
-    // let choice = prompt("Choose rock, paper or scissors: ", "")
-    playerSelection = cleanInputString(playerSelection)
-
+function getResult(playerSelection, computerSelection) {
     // Only the first letter matters    
     let p = playerSelection[0]
     let c = computerSelection[0]
@@ -62,7 +40,7 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function getPlayerChoice(){
-    let choice = prompt("Choose rock, paper or scissors: ", "")
+    // let choice = prompt("Choose rock, paper or scissors: ", "")
     playerSelection = cleanInputString(choice)
 
     while(
@@ -78,32 +56,75 @@ function getPlayerChoice(){
 }
 
 
-let NUM_ROUNDS = 5
-function game(){
-    let p_wins = 0;
-    let c_wins = 0;
-    for(let i=0; i<NUM_ROUNDS; i++){
-        let result = playRound(getPlayerChoice(), getComputerChoice())
+// let NUM_ROUNDS = 1
+// function game(){
+//     let p_wins = 0;
+//     let c_wins = 0;
+//     for(let i=0; i<NUM_ROUNDS; i++){
+//         let playerChoice = await buttonCallback();
+//         let result = playRound(getPlayerChoice(), getComputerChoice())
         
-        if (result == "draw"){
-            // Do nothing
-        }else if (result == "player"){
-            p_wins += 1
-        }else{
-            c_wins += 1
-        }
+//         if (result == "draw"){
+//             // Do nothing
+//         }else if (result == "player"){
+//             p_wins += 1
+//         }else{
+//             c_wins += 1
+//         }
         
+//     }
+
+
+//     if (p_wins == c_wins){
+//         console.log(`It's a tie! Both players have ${p_wins} win(s)!`)
+//     }else if (p_wins > c_wins){
+//         console.log(`Player is the winner with ${p_wins} win(s)!`)
+//     }else (
+//         console.log(`Computer is the winner with ${c_wins} win(s)!`)
+//     )
+// }
+
+
+let TOTAL_ROUNDS = 1;
+let CURR_ROUND = 1;
+let P_WINS = 0;
+let C_WINS = 0;
+function playRound(playerSelection){
+    // Reset counters for first round
+    if(CURR_ROUND == 1){
+        P_WINS = 0;
+        C_WINS = 0;
     }
 
+    // Play the round
+    let result = getResult(playerSelection, getComputerChoice());
+    if (result == "draw"){
+        // Do nothing
+    }else if (result == "player"){
+        P_WINS += 1;
+    }else{
+        C_WINS += 1;
+    }
 
-    if (p_wins == c_wins){
-        console.log(`It's a tie! Both players have ${p_wins} win(s)!`)
-    }else if (p_wins > c_wins){
-        console.log(`Player is the winner with ${p_wins} win(s)!`)
-    }else (
-        console.log(`Computer is the winner with ${c_wins} win(s)!`)
-    )
+    // Add counter
+    TOTAL_ROUNDS++;
+
+    // TODO: finish the game if the final round
 }
+
+
+
+
+function playerChoice(e){
+    // console.log(e);
+    let btn = e.target;
+    console.log(btn.textContent);
+    playRound(btn.textContent);
+}
+
+// Add an click listener to the buttons
+const bts = Array.from(document.querySelectorAll("button"));
+bts.forEach(btn => btn.addEventListener('click', playerChoice));
 
 
 // console.log(getComputerChoice())
@@ -113,5 +134,5 @@ function game(){
 // console.log(playRound("rock", getComputerChoice()))
 // console.log(playRound("paper", getComputerChoice()))
 // console.log(playRound("scissors", getComputerChoice()))
-game()
+// game()
 
