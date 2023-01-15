@@ -24,17 +24,20 @@ function getResult(playerSelection, computerSelection) {
 
     // Draw scenario
     if (p == c){
-        console.log(`It's a draw! Both players chose ${playerSelection}.`)
+        const announc = document.querySelector(".announc");
+        announc.textContent = `It's a draw! Both players chose ${playerSelection}.`;
         return "draw";
     }else if(
         (p == "R" && c == "S") ||
         (p == "P" && c == "R") ||
         (p == "S" && c == "P")
     ){
-        console.log(`Player wins! ${playerSelection} beats ${computerSelection}.`)
+        const announc = document.querySelector(".announc");
+        announc.textContent = `Player wins! ${playerSelection} beats ${computerSelection}.`
         return "player";
     }else{
-        console.log(`Computer wins! ${computerSelection} beats ${playerSelection}.`)
+        const announc = document.querySelector(".announc");
+        announc.textContent = `Computer wins! ${computerSelection} beats ${playerSelection}.`;
         return "computer"
     }
 }
@@ -85,7 +88,34 @@ function getPlayerChoice(){
 // }
 
 
-let TOTAL_ROUNDS = 1;
+let PLAYER_NAME = "Player"
+
+function updateScoreboard(){
+    const sb = document.querySelectorAll(".scoreboard > p");
+    sb[0].textContent = `${PLAYER_NAME}: ${P_WINS}`;
+    sb[1].textContent = `Computer: ${C_WINS}`;
+}
+
+function declareWinner(){
+    console.log("Inside winner declaration");
+    if (CURR_ROUND > TOTAL_ROUNDS){
+        const announc = document.querySelector(".announc");
+        let win = document.createElement("p");
+        win.classList.add("winner");
+        if (P_WINS == C_WINS){
+            win.textContent = `It's a tie! Both players have ${P_WINS} win(s)!`;
+        }else if (P_WINS > C_WINS){
+            win.textContent = `Player is the winner with ${P_WINS} win(s)!`;
+        }else {
+            win.textContent = `Computer is the winner with ${C_WINS} win(s)!`;
+        }
+        CURR_ROUND = 1;
+        announc.appendChild(win);
+    }
+}
+
+
+let TOTAL_ROUNDS = 3;
 let CURR_ROUND = 1;
 let P_WINS = 0;
 let C_WINS = 0;
@@ -94,6 +124,14 @@ function playRound(playerSelection){
     if(CURR_ROUND == 1){
         P_WINS = 0;
         C_WINS = 0;
+    }
+
+    // Reset announcement div
+    const announc = document.querySelector(".announc");
+    const winner_child = document.querySelector(".announc > .winner");
+    if (winner_child){
+        console.log(winner_child);
+        announc.removeChild(winner_child)
     }
 
     // Play the round
@@ -106,10 +144,10 @@ function playRound(playerSelection){
         C_WINS += 1;
     }
 
-    // Add counter
-    TOTAL_ROUNDS++;
-
-    // TODO: finish the game if the final round
+    // Update controls
+    CURR_ROUND++;
+    updateScoreboard();
+    declareWinner();
 }
 
 
