@@ -22,9 +22,20 @@ function getResult(playerSelection, computerSelection) {
     let p = playerSelection[0]
     let c = computerSelection[0]
 
-    // Draw scenario
+    const announc = document.querySelector(".announc");
+
+    // Update history
+    if (announc.textContent){
+        console.log("Updated history");
+        const history = document.querySelector(".history");
+        const newEntry = document.createElement("p");
+        newEntry.textContent = announc.textContent;
+        history.appendChild(newEntry);
+    }
+
+    
     if (p == c){
-        const announc = document.querySelector(".announc");
+        // Draw scenario
         announc.textContent = `It's a draw! Both players chose ${playerSelection}.`;
         return "draw";
     }else if(
@@ -32,11 +43,9 @@ function getResult(playerSelection, computerSelection) {
         (p == "P" && c == "R") ||
         (p == "S" && c == "P")
     ){
-        const announc = document.querySelector(".announc");
         announc.textContent = `Player wins! ${playerSelection} beats ${computerSelection}.`
         return "player";
     }else{
-        const announc = document.querySelector(".announc");
         announc.textContent = `Computer wins! ${computerSelection} beats ${playerSelection}.`;
         return "computer"
     }
@@ -90,10 +99,15 @@ function getPlayerChoice(){
 
 let PLAYER_NAME = "Player"
 
-function updateScoreboard(){
+function updateControls(){
+    // Update scoreboard
     const sb = document.querySelectorAll(".scoreboard > p");
     sb[0].textContent = `${PLAYER_NAME}: ${P_WINS}`;
     sb[1].textContent = `Computer: ${C_WINS}`;
+
+    // Update round counter
+    const r_counter = document.querySelector(".round-counter");
+    r_counter.textContent = `Round ${CURR_ROUND} of ${TOTAL_ROUNDS}`;
 }
 
 function declareWinner(){
@@ -114,16 +128,17 @@ function declareWinner(){
     }
 }
 
-
-let TOTAL_ROUNDS = 3;
-let CURR_ROUND = 1;
-let P_WINS = 0;
-let C_WINS = 0;
-function playRound(playerSelection){
+// Reset all counters and elements to a game start
+function resetControls(){
     // Reset counters for first round
     if(CURR_ROUND == 1){
         P_WINS = 0;
         C_WINS = 0;
+
+        // Reset history
+        const history = document.querySelector(".history");
+        const lastRounds = document.querySelectorAll(".history > p");
+        lastRounds.forEach(r => history.removeChild(r));
     }
 
     // Reset announcement div
@@ -133,6 +148,19 @@ function playRound(playerSelection){
         console.log(winner_child);
         announc.removeChild(winner_child)
     }
+
+    // Reset round counter
+    const r_counter = document.querySelector(".round-counter");
+    r_counter.textContent = `Round ${CURR_ROUND} of ${TOTAL_ROUNDS}`;
+}
+
+
+let TOTAL_ROUNDS = 3;
+let CURR_ROUND = 1;
+let P_WINS = 0;
+let C_WINS = 0;
+function playRound(playerSelection){
+    resetControls();
 
     // Play the round
     let result = getResult(playerSelection, getComputerChoice());
@@ -146,7 +174,7 @@ function playRound(playerSelection){
 
     // Update controls
     CURR_ROUND++;
-    updateScoreboard();
+    updateControls();
     declareWinner();
 }
 
