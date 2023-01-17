@@ -4,28 +4,40 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
     <title>Rock Paper Scissors</title>
 </head>
 <body>
+    <div class="header">
+        <h1>Rock Paper Scissors</h1>
+    </div>
     
+    <div class="options-container">
+        <p>Choose an option</p>
+        <div class="buttons">
+            <button id="Rock" class="player-select"><p class="emoji">🪨</p><p>Rock</p></button>
+            <button id="Paper" class="player-select"><p class="emoji">📄</p><p>Paper</p></button>
+            <button id="Scissors" class="player-select"><p class="emoji">✂️</p><p>Scissors</p></button>
+        </div>
+    </div>
+
     <div>
-        <button class="player-select">Rock</button>
-        <button class="player-select">Paper</button>
-        <button class="player-select">Scissors</button>
-    </div>
+        <div class="round-counter">Round 1 of 3</div>
 
-    <div class="round-counter">Round 1 of 3</div>
+        <div class="scoreboard">
+            <h2>Score</h2>
+            <p>Player: 0</p>
+            <p>Computer: 0</p>
+        </div>
 
-    <div class="scoreboard">
-        <h2>Score</h2>
-        <p>Player: 0</p>
-        <p>Computer: 0</p>
+        <div class="announc">
+            <p class="round-win"></p>
+        </div>
     </div>
+    
 
-    <div class="announc">
-        <p class="round-win"></p>
-    </div>
+    
 
     <div class="history">
         <h2>Round History</h2>

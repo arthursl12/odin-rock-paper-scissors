@@ -148,8 +148,8 @@ function playRound(playerSelection){
 function playerChoice(e){
     // console.log(e);
     let btn = e.target;
-    console.log(btn.textContent);
-    playRound(btn.textContent);
+    console.log(btn.id);
+    playRound(btn.id);
 }
 
 // Add an click listener to the buttons
