@@ -1,5 +1,5 @@
 body{
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     display: flex;
     flex-direction: column;
     background-color: rgb(22, 94, 189);
@@ -37,7 +37,7 @@ body > h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 10px 30px;
+    padding: 30px 30px;
     gap: 10px;
 }
 
@@ -48,3 +48,18 @@ body > h1 {
 }
 
 /* SCOREBOARD AND GENERAL INFO */
+.scoreboard-container{
+    padding: 30px 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.round-counter{
+    border: 1px solid red;
+}
+
+.scoreboard{
+    display: flex;
+
+}
