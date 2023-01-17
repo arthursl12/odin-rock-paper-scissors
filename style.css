@@ -53,13 +53,37 @@ body > h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 24px;
 }
 
-.round-counter{
-    border: 1px solid red;
+.scoreboard-container > h2{
+    margin: 0;
 }
 
 .scoreboard{
-    display: flex;
+    border: 5px solid white;
+    border-radius: 20px;
 
+    display: flex;
 }
+
+.score{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    min-width: 120px;
+
+    font-size: 20px;
+}
+
+.player-score{
+    border-right: 5px solid white;
+}
+
+.announc {
+    min-height: 20px;
+}
+
+
