@@ -25,80 +25,39 @@ function getResult(playerSelection, computerSelection) {
     const announc = document.querySelector(".announc");
 
     // Update history
-    if (announc.textContent){
-        console.log("Updated history");
-        const history = document.querySelector(".history");
-        const newEntry = document.createElement("p");
-        newEntry.textContent = announc.textContent;
-        history.appendChild(newEntry);
-    }
-
+    const history = document.querySelector(".history");
+    const newDiv = document.createElement("div");
+    const newEntry = document.createElement("p");
+    const roundInfo = document.createElement("p");
+    roundInfo.textContent = `R ${CURR_ROUND}/${TOTAL_ROUNDS}`;
     
     if (p == c){
         // Draw scenario
-        announc.textContent = `It's a draw! Both players chose ${playerSelection}.`;
+        newEntry.textContent = `It's a draw! Both players chose ${playerSelection}.`;
+        newDiv.appendChild(roundInfo);
+        newDiv.appendChild(newEntry);
+        history.appendChild(newDiv);
         return "draw";
     }else if(
         (p == "R" && c == "S") ||
         (p == "P" && c == "R") ||
         (p == "S" && c == "P")
     ){
-        announc.textContent = `Player wins! ${playerSelection} beats ${computerSelection}.`
+        newEntry.textContent = `Player wins! ${playerSelection} beats ${computerSelection}.`
+        newDiv.appendChild(roundInfo);
+        newDiv.appendChild(newEntry);
+        history.appendChild(newDiv);
         return "player";
     }else{
-        announc.textContent = `Computer wins! ${computerSelection} beats ${playerSelection}.`;
+        newEntry.textContent = `Computer wins! ${computerSelection} beats ${playerSelection}.`;
+        newDiv.appendChild(roundInfo);
+        newDiv.appendChild(newEntry);
+        history.appendChild(newDiv);
         return "computer"
     }
 }
 
-function getPlayerChoice(){
-    // let choice = prompt("Choose rock, paper or scissors: ", "")
-    playerSelection = cleanInputString(choice)
-
-    while(
-        playerSelection != "Rock" && 
-        playerSelection != "Paper" && 
-        playerSelection != "Scissors")
-    {
-        console.log("Unknown option. Try again!")
-        choice = prompt("Choose rock, paper or scissors: ", "")
-        playerSelection = cleanInputString(choice)
-    }
-    return playerSelection
-}
-
-
-// let NUM_ROUNDS = 1
-// function game(){
-//     let p_wins = 0;
-//     let c_wins = 0;
-//     for(let i=0; i<NUM_ROUNDS; i++){
-//         let playerChoice = await buttonCallback();
-//         let result = playRound(getPlayerChoice(), getComputerChoice())
-        
-//         if (result == "draw"){
-//             // Do nothing
-//         }else if (result == "player"){
-//             p_wins += 1
-//         }else{
-//             c_wins += 1
-//         }
-        
-//     }
-
-
-//     if (p_wins == c_wins){
-//         console.log(`It's a tie! Both players have ${p_wins} win(s)!`)
-//     }else if (p_wins > c_wins){
-//         console.log(`Player is the winner with ${p_wins} win(s)!`)
-//     }else (
-//         console.log(`Computer is the winner with ${c_wins} win(s)!`)
-//     )
-// }
-
-
 let PLAYER_NAME = "Player"
-
 function updateControls(){
     // Update scoreboard
     const sb = document.querySelectorAll(".scoreboard > p");
@@ -112,19 +71,22 @@ function updateControls(){
 
 function declareWinner(){
     console.log("Inside winner declaration");
-    if (CURR_ROUND > TOTAL_ROUNDS){
+    if (CURR_ROUND == TOTAL_ROUNDS){
+
         const announc = document.querySelector(".announc");
-        let win = document.createElement("p");
-        win.classList.add("winner");
         if (P_WINS == C_WINS){
-            win.textContent = `It's a tie! Both players have ${P_WINS} win(s)!`;
+            announc.textContent = `It's a tie! Both players have ${P_WINS} win(s)!`;
         }else if (P_WINS > C_WINS){
-            win.textContent = `Player is the winner with ${P_WINS} win(s)!`;
+            announc.textContent = `Player is the winner with ${P_WINS} win(s)!`;
         }else {
-            win.textContent = `Computer is the winner with ${C_WINS} win(s)!`;
+            announc.textContent = `Computer is the winner with ${C_WINS} win(s)!`;
         }
-        CURR_ROUND = 1;
-        announc.appendChild(win);
+        // announc.appendChild(win);
+
+        // confirm(announc.textContent + "\nPress OK to start a new game");
+        
+        resetControls();
+        
     }
 }
 
@@ -137,21 +99,14 @@ function resetControls(){
 
         // Reset history
         const history = document.querySelector(".history");
-        const lastRounds = document.querySelectorAll(".history > p");
+        const lastRounds = document.querySelectorAll(".history > div");
         lastRounds.forEach(r => history.removeChild(r));
+
+        const announc = document.querySelector(".announc");
+        announc.textContent = "";
     }
 
-    // Reset announcement div
-    const announc = document.querySelector(".announc");
-    const winner_child = document.querySelector(".announc > .winner");
-    if (winner_child){
-        console.log(winner_child);
-        announc.removeChild(winner_child)
-    }
-
-    // Reset round counter
-    const r_counter = document.querySelector(".round-counter");
-    r_counter.textContent = `Round ${CURR_ROUND} of ${TOTAL_ROUNDS}`;
+    updateControls();
 }
 
 
@@ -160,7 +115,14 @@ let CURR_ROUND = 1;
 let P_WINS = 0;
 let C_WINS = 0;
 function playRound(playerSelection){
+    if (CURR_ROUND > TOTAL_ROUNDS){
+        CURR_ROUND = 1;
+    }
+
+
     resetControls();
+
+    
 
     // Play the round
     let result = getResult(playerSelection, getComputerChoice());
@@ -173,9 +135,11 @@ function playRound(playerSelection){
     }
 
     // Update controls
-    CURR_ROUND++;
+    
     updateControls();
     declareWinner();
+    CURR_ROUND++;
+
 }
 
 
