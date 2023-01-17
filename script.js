@@ -60,9 +60,14 @@ function getResult(playerSelection, computerSelection) {
 let PLAYER_NAME = "Player"
 function updateControls(){
     // Update scoreboard
-    const sb = document.querySelectorAll(".scoreboard > p");
-    sb[0].textContent = `${PLAYER_NAME}: ${P_WINS}`;
-    sb[1].textContent = `Computer: ${C_WINS}`;
+    let sb = document.querySelectorAll(".scoreboard > .player-score > p");
+    sb[0].textContent = `${PLAYER_NAME}`;
+    sb[1].textContent = `${P_WINS}`;
+
+    sb = document.querySelectorAll(".scoreboard > .comp-score > p");
+    console.log(sb);
+    sb[0].textContent = `Computer`;
+    sb[1].textContent = `${C_WINS}`;
 
     // Update round counter
     const r_counter = document.querySelector(".round-counter");
