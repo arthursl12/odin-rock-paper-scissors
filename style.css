@@ -5,22 +5,42 @@ body{
     background-color: rgb(22, 94, 189);
     color: white;
     margin: 0;
+    min-height: 100vh;
+    justify-content: space-between;
+    align-content: center;
 }
 
+/* HEADER */
 .header{
     background-color: rgb(19, 59, 110);
     padding: 8px 30px;
-    /* margin: -8px; */
+    display: flex;
 }
 
 body > h1 {
     font-weight: 1000;
     font-size: 32px;
-    
 }
 
-/* OPTIONS */
 
+/* FOOTER */
+.footer{
+    background-color: rgb(19, 59, 110);
+    padding: 20px 30px;
+    display: flex;
+    justify-content: center;
+}
+
+/* CONTENT */
+.content{
+    display: flex;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+
+
+/* OPTIONS */
 .player-select{
     min-width: 150px;
     padding: 0px;
@@ -39,20 +59,32 @@ body > h1 {
     align-items: center;
     padding: 30px 30px;
     gap: 10px;
+    align-self: center;
+    justify-content: center;
+    /* flex-wrap: wrap; */
+    /* max-width: 200px; */
+    /* min-width: 600px; */
+    flex-grow: 1;
 }
 
 .buttons{
     display: flex;
     gap:20px;
     align-self: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 200px;
 }
 
 /* SCOREBOARD AND GENERAL INFO */
+
 .scoreboard-container{
     padding: 30px 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    flex-grow: 1;
     gap: 24px;
 }
 
@@ -63,7 +95,7 @@ body > h1 {
 .scoreboard{
     border: 5px solid white;
     border-radius: 20px;
-
+    
     display: flex;
 }
 
@@ -83,12 +115,17 @@ body > h1 {
 }
 
 .announc {
-    min-height: 20px;
+    min-height: 50px;
+    max-width: 200px;
+    text-align: center;
+    align-self: center;
 }
 
 /* ROUND HISTORY */
 .history{
+    min-width: 800px;
     padding: 30px 30px;
+    flex-grow: 1;
 }
 
 .entry{
