@@ -86,4 +86,30 @@ body > h1 {
     min-height: 20px;
 }
 
+/* ROUND HISTORY */
+.history{
+    padding: 30px 30px;
+}
 
+.entry{
+    /* border: 1px solid white; */
+
+    display: flex;
+    gap: 0px;
+
+    padding: 0px 0px;
+}
+
+.entry > p {
+    border: 1px solid white;
+    padding: 20px 20px;
+    margin: 0;
+}
+
+.entry-text{
+    min-width: 400px;
+}
+
+.entry-round {
+    font-style: italic;
+}

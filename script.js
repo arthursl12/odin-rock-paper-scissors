@@ -27,8 +27,11 @@ function getResult(playerSelection, computerSelection) {
     // Update history
     const history = document.querySelector(".history");
     const newDiv = document.createElement("div");
+    newDiv.classList.add("entry");
     const newEntry = document.createElement("p");
+    newEntry.classList.add("entry-text");
     const roundInfo = document.createElement("p");
+    roundInfo.classList.add("entry-round");
     roundInfo.textContent = `R ${CURR_ROUND}/${TOTAL_ROUNDS}`;
     
     if (p == c){
